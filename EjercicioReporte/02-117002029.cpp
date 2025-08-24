@@ -1,5 +1,8 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <string.h>
+#include <vector>
+#include <ctime>
+#include <cstdlib>
 #include <glew.h>
 #include <glfw3.h>
 //Dimensiones de la ventana
@@ -26,6 +29,124 @@ void main()											\n\
 {													\n\
 	color = vec4(0.65f,0.3f,0.8f,1.0f);	 			\n\
 }";
+
+void agregarCuadrado(std::vector<GLfloat>& vertices, float x, float y, float tam){
+	float mitad = tam / 2.0f;
+	vertices.insert(vertices.end(),{
+		x - mitad, y - mitad, 0.0f,
+		x + mitad, y - mitad, 0.0f,
+		x + mitad, y + mitad, 0.0f,
+
+		x - mitad, y - mitad, 0.0f,
+		x + mitad, y + mitad, 0.0f,
+		x - mitad, y + mitad, 0.0f
+		});
+}
+
+int CrearLetras(){
+	std::vector<GLfloat> vertices;
+
+	const float tam = 0.05f;
+
+	// Letra G
+	// Rectangulo horizontal superior 
+	agregarCuadrado(vertices, -0.8, 0.5, tam);
+	agregarCuadrado(vertices, -0.75, 0.5, tam);
+	agregarCuadrado(vertices, -0.70, 0.5, tam);
+	agregarCuadrado(vertices, -0.65, 0.5, tam);
+	agregarCuadrado(vertices, -0.60, 0.5, tam);
+
+	// Rectangulo vertical izquierdo
+	agregarCuadrado(vertices, -0.8, 0.45, tam);
+	agregarCuadrado(vertices, -0.8, 0.40, tam);
+	agregarCuadrado(vertices, -0.8, 0.35, tam);
+	agregarCuadrado(vertices, -0.8, 0.30, tam);
+	agregarCuadrado(vertices, -0.8, 0.25, tam);
+	agregarCuadrado(vertices, -0.8, 0.20, tam);
+
+	// Rectangulo horizontal superior
+
+	agregarCuadrado(vertices, -0.60, 0.2, tam);
+	agregarCuadrado(vertices, -0.65, 0.2, tam);
+	agregarCuadrado(vertices, -0.70, 0.2, tam);
+	agregarCuadrado(vertices, -0.75, 0.2, tam);
+	agregarCuadrado(vertices, -0.80, 0.2, tam);
+
+	// Rectangulo vertical derecho
+	agregarCuadrado(vertices, -0.6, 0.35, tam);
+	agregarCuadrado(vertices, -0.6, 0.30, tam);
+	agregarCuadrado(vertices, -0.6, 0.25, tam);
+	agregarCuadrado(vertices, -0.6, 0.20, tam);
+
+	// Rectangulo horizontal medio
+
+	agregarCuadrado(vertices, -0.60, 0.35, tam);
+	agregarCuadrado(vertices, -0.65, 0.35, tam);
+	agregarCuadrado(vertices, -0.70, 0.35, tam);
+
+
+	// V
+
+	// Rectangulo vertical superior izquierdo
+
+	agregarCuadrado(vertices, -0.20, 0.5, tam);
+	agregarCuadrado(vertices, -0.20, 0.45, tam);
+	agregarCuadrado(vertices, -0.20, 0.40, tam);
+	agregarCuadrado(vertices, -0.20, 0.35, tam);
+	agregarCuadrado(vertices, -0.20, 0.30, tam);
+	agregarCuadrado(vertices, -0.15, 0.30, tam);
+	agregarCuadrado(vertices, -0.15, 0.25, tam);
+	agregarCuadrado(vertices, -0.10, 0.20, tam);
+	agregarCuadrado(vertices, -0.05, 0.20, tam);
+	agregarCuadrado(vertices,  0.00, 0.25, tam);
+	agregarCuadrado(vertices,  0.00, 0.30, tam);
+	agregarCuadrado(vertices,  0.05, 0.30, tam);
+	agregarCuadrado(vertices,  0.05, 0.35, tam);
+	agregarCuadrado(vertices,  0.05, 0.40, tam);
+	agregarCuadrado(vertices,  0.05, 0.45, tam);
+	agregarCuadrado(vertices,  0.05, 0.50, tam);
+
+
+	// A
+
+	agregarCuadrado(vertices, 0.60, 0.50, tam);
+	agregarCuadrado(vertices, 0.55, 0.45, tam);
+	agregarCuadrado(vertices, 0.55, 0.40, tam);
+	agregarCuadrado(vertices, 0.5, 0.35, tam);
+	agregarCuadrado(vertices, 0.5, 0.30, tam);
+	agregarCuadrado(vertices, 0.5, 0.25, tam);
+	agregarCuadrado(vertices, 0.5, 0.20, tam);
+
+	agregarCuadrado(vertices, 0.65, 0.50, tam);
+	agregarCuadrado(vertices, 0.70, 0.45, tam);
+	agregarCuadrado(vertices, 0.70, 0.40, tam);
+	agregarCuadrado(vertices, 0.75, 0.35, tam);
+	agregarCuadrado(vertices, 0.75, 0.30, tam);
+	agregarCuadrado(vertices, 0.75, 0.25, tam);
+	agregarCuadrado(vertices, 0.75, 0.20, tam);
+
+	// Linea media
+	
+	agregarCuadrado(vertices, 0.55, 0.35, tam);
+	agregarCuadrado(vertices, 0.60, 0.35, tam);
+	agregarCuadrado(vertices, 0.65, 0.35, tam);
+	agregarCuadrado(vertices, 0.70, 0.35, tam);
+	agregarCuadrado(vertices, 0.75, 0.35, tam);
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	return (int)vertices.size() / 3;
+}
 
 
 
@@ -168,38 +289,45 @@ int main()
 	glViewport(0, 0, BufferWidth, BufferHeight);
 
 	//Llamada a las funciones creadas antes del main
-	CrearTriangulo();
+	int cantidadVertices = CrearLetras();
 	CompileShaders();
 
-	int contador = 0;
+	// Arreglo de 3 posiciones con colores aleatorios 
+	std::vector<double> colores_aleatorios(3,0.0f);
 	//Loop mientras no se cierra la ventana
+
+	// Usamos dos variables time_t para calcular 2 segundos
+	time_t t1, t2;
+	time(&t1);
+
 	while (!glfwWindowShouldClose(mainWindow))
 	{
 		//Recibir eventos del usuario
 		glfwPollEvents();
 
-		printf("%d\n", contador);
-		//Limpiar la ventana
-		if (contador >= 0 and contador <= 100) {
-			glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		// Generamos numeros aleatorios y los casteamos a double
+		for (double& color : colores_aleatorios) {
+			color = static_cast <double> (rand()) / static_cast <double> (RAND_MAX);
 		}
-		else if (contador >= 100 and contador <= 200) {
-			glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+
+		// Medimos el tiempo
+		time(&t2);
+
+		// Si la diferencia de tiempo es mayor a dos segundos, cambiamos de color
+		if (difftime(t2, t1) >= 2) {
+			// Asignamos los colores aleatorios
+			glClearColor(colores_aleatorios[0], colores_aleatorios[1], colores_aleatorios[2], 0.0f);
+			// Incrementamos 2 segundos t1 para mantener la ventana de tiempo
+			t1 += 2;
 		}
-		else if (contador >= 200 and contador <= 300) {
-			glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-		}
-		else {
-			glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-			contador = 0;
-		}
-		contador++;
+
+		
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shader);
 
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 12);
+		glDrawArrays(GL_TRIANGLES, 0, cantidadVertices);
 		glBindVertexArray(0);
 
 		glUseProgram(0);
