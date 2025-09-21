@@ -16,6 +16,17 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	rotax = 0.0f;
 	rotay = 0.0f;
 	rotaz = 0.0f;
+	articulacion1 = 0.0f;
+	articulacion2 = 0.0f;
+	articulacion3 = 0.0f;
+	articulacion4 = 0.0f;
+	articulacion5 = 0.0f;
+	articulacion6 = 0.0f;
+	articulacion7 = 0.0f;
+	articulacion8 = 0.0f;
+	articulacion9 = 0.0f;
+	articulacion10 = 0.0f;
+	
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -38,9 +49,7 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica 3: Modelado Geométrico", NULL, NULL);
-	// Hide and capture the cursor (FPS mode)
-
+	mainWindow = glfwCreateWindow(width, height, "Practica 04: Modelado Jerarquico", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -54,15 +63,13 @@ int Window::Initialise()
 	//asignar el contexto
 	glfwMakeContextCurrent(mainWindow);
 
+	glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//MANEJAR TECLADO y MOUSE
 	createCallbacks();
 
 
 	//permitir nuevas extensiones
 	glewExperimental = GL_TRUE;
-
-	// Deshabilitar cursor 
-	glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -110,17 +117,60 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
+	
+	if (key == GLFW_KEY_E)
+	{
+		theWindow->rotax += 10.0;
+	}
 	if (key == GLFW_KEY_R)
 	{
 		theWindow->rotay += 10.0; //rotar sobre el eje y 10 grados
 	}
-	else if (key == GLFW_KEY_E)
-	{
-		theWindow->rotax += 10.0;
-	}
-	else if (key == GLFW_KEY_T)
+	if (key == GLFW_KEY_T)
 	{
 		theWindow->rotaz += 10.0;
+	}
+	if (key == GLFW_KEY_F)
+	{
+		theWindow->articulacion1 += 10.0;
+	}
+
+	if (key == GLFW_KEY_G)
+	{
+		theWindow->articulacion2 += 10.0;
+	}
+	if (key == GLFW_KEY_H)
+	{
+		theWindow->articulacion3 += 10.0;
+	}
+	if (key == GLFW_KEY_J)
+	{
+		theWindow->articulacion4 += 10.0;
+	}
+	if (key == GLFW_KEY_K)
+	{
+		theWindow->articulacion5 += 10.0;
+	}
+	if (key == GLFW_KEY_L)
+	{
+		theWindow->articulacion6 += 10.0;
+	}
+	if (key == GLFW_KEY_P)
+	{
+		theWindow->articulacion7 += 10.0;
+	}
+
+	if (key == GLFW_KEY_O)
+	{
+		theWindow->articulacion8 += 10.0;
+	}
+	if (key == GLFW_KEY_I)
+	{
+		theWindow->articulacion9 += 10.0;
+	}
+	if (key == GLFW_KEY_U)
+	{
+		theWindow->articulacion10 += 10.0;
 	}
 
 
