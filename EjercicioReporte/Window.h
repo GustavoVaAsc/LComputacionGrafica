@@ -30,6 +30,11 @@ public:
 	GLfloat getarticulacion8() { return articulacion8; }
 	GLfloat getarticulacion9() { return articulacion9; }
 	GLfloat getarticulacion10() { return articulacion10; }
+	void setArticulacion1(GLfloat value);
+	void setArticulacion2(GLfloat value);
+	void setArticulacion3(GLfloat value);
+	void setArticulacion4(GLfloat value);
+	void setArticulacion5(GLfloat value);
 
 	~Window();
 private: 

@@ -49,7 +49,7 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica 04: Modelado Jerarquico", NULL, NULL);
+	mainWindow = glfwCreateWindow(width, height, "Practica 05: Adaptación y carga de modelos", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -132,45 +132,71 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_F)
 	{
-		theWindow->articulacion1 += 10.0;
+		if(theWindow->articulacion1 <= 45.0)
+			theWindow->articulacion1 += 10.0f;
+		
 	}
 
 	if (key == GLFW_KEY_G)
 	{
-		theWindow->articulacion2 += 10.0;
+		
+		if (theWindow->articulacion1 >= -45.0)
+			theWindow->articulacion1 -= 10.0f;
+		
 	}
 	if (key == GLFW_KEY_H)
 	{
-		theWindow->articulacion3 += 10.0;
+		
+		theWindow->articulacion2 += 10.0f;
+		
 	}
+
 	if (key == GLFW_KEY_J)
 	{
-		theWindow->articulacion4 += 10.0;
+		
+		theWindow->articulacion2 -= 10.0f;
+		
 	}
+
 	if (key == GLFW_KEY_K)
 	{
-		theWindow->articulacion5 += 10.0;
+		
+		theWindow->articulacion3 += 10.0f;
+		
 	}
+
 	if (key == GLFW_KEY_L)
 	{
-		theWindow->articulacion6 += 10.0;
+		
+		theWindow->articulacion3 -= 10.0f;
+		
 	}
+
 	if (key == GLFW_KEY_P)
 	{
-		theWindow->articulacion7 += 10.0;
+		
+		theWindow->articulacion4 += 10.0f;
+		
 	}
 
 	if (key == GLFW_KEY_O)
 	{
-		theWindow->articulacion8 += 10.0;
+		
+		theWindow->articulacion4 -= 10.0f;
+		
 	}
+
 	if (key == GLFW_KEY_I)
 	{
-		theWindow->articulacion9 += 10.0;
+		
+		theWindow->articulacion5 += 10.0f;
+		
 	}
 	if (key == GLFW_KEY_U)
 	{
-		theWindow->articulacion10 += 10.0;
+		
+		theWindow->articulacion5 -= 10.0f;
+		
 	}
 
 
@@ -213,6 +239,30 @@ void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
 	theWindow->lastY = yPos;
 }
 
+void Window::setArticulacion1(GLfloat value)
+{
+	articulacion1 = value;
+}
+
+void Window::setArticulacion2(GLfloat value)
+{
+	articulacion2 = value;
+}
+
+void Window::setArticulacion3(GLfloat value)
+{
+	articulacion3 = value;
+}
+
+void Window::setArticulacion4(GLfloat value)
+{
+	articulacion4 = value;
+}
+
+void Window::setArticulacion5(GLfloat value)
+{
+	articulacion5 = value;
+}
 
 Window::~Window()
 {
