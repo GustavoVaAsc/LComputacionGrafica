@@ -1,0 +1,42 @@
+# Blender 3.6.0 MTL File: 'fuego.blend'
+# www.blender.org
+
+newmtl 1
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd tronco.png
+
+newmtl 2
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd tronco_cortado.png
+
+newmtl 3
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.450000
+illum 2
+map_Kd fuego.png
+map_Ke ../../../../../../Downloads/Diseño sin título.png
+map_d ../../../../../../Downloads/Diseño sin título.png
+
+newmtl 4
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.066805 0.066805 0.066805
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2

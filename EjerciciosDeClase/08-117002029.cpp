@@ -1,5 +1,5 @@
-/*
-Pr�ctica 7: Iluminaci�n 1 
+﻿/*
+Pr�ctica 7: Iluminaci�n 1
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -47,11 +47,13 @@ Texture dirtTexture;
 Texture plainTexture;
 Texture pisoTexture;
 Texture AgaveTexture;
+Texture dadoOchoTexture;
 
 Model Kitt_M;
 Model Llanta_1;
 Model Llanta_2;
 Model Blackhawk_M;
+Model Fogata;
 
 
 Skybox skybox;
@@ -158,16 +160,16 @@ void CreateObjects()
 
 
 	};
-	
-	Mesh *obj1 = new Mesh();
+
+	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
@@ -178,13 +180,65 @@ void CreateObjects()
 	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
 
 	calcAverageNormals(vegetacionIndices, 12, vegetacionVertices, 64, 8, 5);
+	
+	unsigned int octaedroIndices[] = {
+		0, 1, 2,
+		3, 4, 5,
+		6, 7, 8,
+		9, 10, 11,
+
+		12, 13, 14,
+		15, 16, 17,
+		18, 19, 20,
+		21, 22, 23
+	};
+
+	GLfloat octaedroVertices[] = {
+		0.0f, 1.0f, 0.0f,		0.5f, 0.25f,		-0.577f, -0.577f, -0.577f,
+		0.0f, 0.0f, 1.0f,		0.67f, 0.5f,		-0.577f, -0.577f, -0.577f,
+		1.0f, 0.0f, 0.0f,		0.34f, 0.5f,		-0.577f, -0.577f, -0.577f,
+
+		0.0f, 1.0f, 0.0f,		0.5f, 0.25f,		-0.577f, -0.577f, 0.577f,
+		1.0f, 0.0f, 0.0f,		0.25f, 0.5f,		-0.577f, -0.577f, 0.577f,
+		0.0f, 0.0f, -1.0f,		0.0f, 0.25f,		-0.577f, -0.577f, 0.577f,
+
+		0.0f, 1.0f, 0.0f,		0.5f, 0.25f,		0.577f, -0.577f, 0.577f,
+		0.0f, 0.0f, -1.0f,		1.0f, 0.25f,		0.577f, -0.577f, 0.577f,
+		-1.0f, 0.0f, 0.0f,		0.75f, 0.0f,		0.577f, -0.577f, 0.577f,
+
+		0.0f, 1.0f, 0.0f,		0.5f, 0.25f,		0.577f, -0.577f, -0.577f,
+		-1.0f, 0.0f, 0.0f,		1.0f, 0.25f,		0.577f, -0.577f, -0.577f,
+		0.0f, 0.0f, 1.0f,		0.75f, 0.5f,		0.577f, -0.577f, -0.577f,
+
+		0.0f, -1.0f, 0.0f,		0.5f, 0.75f,		-0.577f, 0.577f, -0.577f,
+		1.0f, 0.0f, 0.0f,		0.25f, 0.5f,		-0.577f, 0.577f, -0.577f,
+		0.0f, 0.0f, 1.0f,		0.75f, 0.5f,		-0.577f, 0.577f, -0.577f,
+
+		0.0f, -1.0f, 0.0f,		0.5f, 0.75f,		-0.577f, 0.577f, 0.577f,
+		0.0f, 0.0f, -1.0f,		0.0f, 0.75f,		-0.577f, 0.577f, 0.577f,
+		1.0f, 0.0f, 0.0f,		0.25f, 0.5f,		-0.577f, 0.577f, 0.577f,
+
+		0.0f, -1.0f, 0.0f,		0.5f, 0.75f,		0.577f, 0.577f, 0.577f,
+		-1.0f, 0.0f, 0.0f,		1.0f, 0.75f,		0.577f, 0.577f, 0.577f,
+		0.0f, 0.0f, -1.0f,		0.75f, 1.0f,		0.577f, 0.577f, 0.577f,
+
+		0.0f, -1.0f, 0.0f,		0.5f, 0.75f,		0.577f, 0.577f, -0.577f,
+		0.0f, 0.0f, 1.0f,		0.75f, 0.5f,		0.577f, 0.577f, -0.577f,
+		-1.0f, 0.0f, 0.0f,		1.0f, 0.75f,		0.577f, 0.577f, -0.577f
+	};
+
+	//calcAverageNormals(octaedroIndices, 24, octaedroVertices, 192, 8, 5);
+
+	Mesh* octaedro = new Mesh();
+	octaedro->CreateMesh(octaedroVertices, octaedroIndices, 192, 24);
+	meshList.push_back(octaedro);
 
 }
 
 
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -211,6 +265,8 @@ int main()
 	pisoTexture.LoadTextureA();
 	AgaveTexture = Texture("Textures/Agave.tga");
 	AgaveTexture.LoadTextureA();
+	dadoOchoTexture = Texture("Textures/dado_8.png");
+	dadoOchoTexture.LoadTextureA();
 
 	Kitt_M = Model();
 	Kitt_M.LoadModel("Models/delorean_texturizado.obj");
@@ -220,7 +276,9 @@ int main()
 	Llanta_2.LoadModel("Models/llanta_2.obj");
 	Blackhawk_M = Model();
 	Blackhawk_M.LoadModel("Models/uh60.obj");
-	
+	Fogata = Model();
+	Fogata.LoadModel("Models/fogata.obj");
+
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -249,6 +307,15 @@ int main()
 		0.3f, 0.2f, 0.1f);
 	pointLightCount++;
 
+
+	pointLights[1] = PointLight(
+		1.0f, 1.0f, 1.0f,
+		4.0f, 5.5f,
+		7.0f, 0.5f, 10.0f,
+		1.0f, 0.05f, 0.022f
+	);
+	pointLightCount++;
+
 	unsigned int spotLightCount = 0;
 	//linterna
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
@@ -275,9 +342,30 @@ int main()
 		1.0f, 0.0f, 0.0f,
 		15.0f);
 	spotLightCount++;
-	
+
+	spotLights[3] = SpotLight(1.0f, 1.0f, 0.0f,
+		1.0f, 2.0f,
+		-5.0f, 10.0f, 0.0f,
+		0.0f, -5.0f, 0.0f,
+		1.0f, 0.0f, 0.1f,
+		25.0f);
+	spotLightCount++;
+
 	//se crean mas luces puntuales y spotlight 
 
+	glm::vec3 fogataPosition(7.0f, -0.85f, 10.0f);
+	glm::vec3 fogataLightPosition;
+
+	glm::vec3 carPosition;
+	glm::vec3 carFrontLight;
+	glm::vec3 carDirection(1.0f, 0.0f, 0.0f);
+
+	glm::vec3 helicopterPosition;
+	glm::vec3 helicopterFrontLight;
+	glm::vec3 helicopterDirection(0.0f, -1.0f, 0.0f);
+
+	float contador = 0;
+	float diff = 0.0006;
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
@@ -305,7 +393,7 @@ int main()
 		uniformView = shaderList[0].GetViewLocation();
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
-		
+
 		//informaci�n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
@@ -315,22 +403,53 @@ int main()
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
 		// luz ligada a la cámara de tipo flash
-		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 		// luz ligada al frente del carro
-		glm::vec3 carPosition = glm::vec3(0.0f + mainWindow.getmuevex(), -1.2f, -3.0f);
-		glm::vec3 carFrontLight = carPosition;
-		carFrontLight.z += 0.0f; 
-		carFrontLight.y += 0.5f; 
+		carPosition = glm::vec3(0.0f + mainWindow.getmuevex(), -1.2f, -3.0f);
+		carFrontLight = carPosition;
+		carFrontLight.z += 0.0f;
+		carFrontLight.y += 0.5f;
 		glm::vec3 carDirection = glm::vec3(1.0f, 0.0f, 0.0f);
 		spotLights[2].SetFlash(carFrontLight, carDirection);
 
+		// luz ligada al helicóptero
+		helicopterPosition = glm::vec3(0.0f + mainWindow.getmuevex2(), 5.0f, 6.0);
+		helicopterFrontLight = helicopterPosition;
+		spotLights[3].SetFlash(helicopterFrontLight, helicopterDirection);
+
+		// Variación de intensidad del fuego (fogata)
+
+		if (contador >= 3.0f) // intensidad máxima
+		{
+			diff = -0.0006f;
+		}
+		else {
+			if (contador <= 0.2f) { // intensidad mínima
+				diff = 0.0006f;
+			}
+		}
+
+		contador += diff;
+		//printf("Contador: %f \n", contador);
+
+		pointLights[1].variateIntensity(diff);
+		
+		// Actualizar posición de la luz de la fogata
+		fogataLightPosition = fogataPosition;
+		fogataLightPosition.y += 0.5f;
+		pointLights[1].SetPos(fogataLightPosition);
+
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
-		shaderList[0].SetPointLights(pointLights, pointLightCount);
+
+		if(mainWindow.getFogataEncendida())
+			shaderList[0].SetPointLights(pointLights, pointLightCount);
+		else
+			shaderList[0].SetPointLights(pointLights, pointLightCount-1);
+		
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
 		glm::mat4 model(1.0);
@@ -347,6 +466,16 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 
 		meshList[2]->RenderMesh();
+
+		// Dado 8 caras
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-28.0f, 3.0f, -10.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		dadoOchoTexture.UseTexture();
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		meshList[4]->RenderMesh();
 
 		//Instancia del coche 
 		model = glm::mat4(1.0);
@@ -392,19 +521,25 @@ int main()
 		Llanta_2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 6.0));
+		model = glm::translate(model, glm::vec3(0.0f + mainWindow.getmuevex2(), 5.0f, 6.0));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Blackhawk_M.RenderModel();
 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(7.0f, -0.85f, 10.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Fogata.RenderModel();
+
 		//Agave �qu� sucede si lo renderizan antes del coche y el helic�ptero?
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 1.0f, -4.0f));
 		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		
+
 		//blending: transparencia o traslucidez
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
