@@ -15,6 +15,10 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	height = windowHeight;
 	muevex = 2.0f;
 	muevex2 = 2.0f;
+	mueveCofre = 0.0f;
+	adelante = true;
+	fogataEncendida = true;
+	estrellaEncendida = true;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -109,10 +113,12 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_Y)
 	{
 		theWindow-> muevex += 1.0;
+		theWindow->adelante = true;
 	}
 	if (key == GLFW_KEY_U)
 	{
 		theWindow-> muevex -= 1.0;
+		theWindow->adelante = false;
 	}
 
 	if (key == GLFW_KEY_H)
@@ -125,6 +131,26 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		theWindow->muevex2 -= 1.0;
 	}
 
+
+	if (key == GLFW_KEY_1 && action == GLFW_PRESS){
+		theWindow->fogataEncendida = !(theWindow->fogataEncendida);
+	}
+
+	if(key == GLFW_KEY_2 && action == GLFW_PRESS){
+		theWindow->estrellaEncendida = !(theWindow->estrellaEncendida);
+	}
+
+	// Mover hacia arriba el cofre con un ángulo máximo de 45 grados
+	if (key == GLFW_KEY_N) {
+		if (theWindow->mueveCofre <= 45.0)
+			theWindow->mueveCofre += 1.0f;
+	}
+
+	// Mover hacia abajo el cofre con un ángulo mínimo de 0 grados
+	if (key == GLFW_KEY_M) {
+		if (theWindow->mueveCofre >= 0)
+			theWindow->mueveCofre -= 1.0f;
+	}
 
 	if (key >= 0 && key < 1024)
 	{
